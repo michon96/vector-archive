@@ -2,19 +2,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardAnimation : MonoBehaviour
+public class CardUIBehaviour : MonoBehaviour
 {
     [Header("Rotation Settings")]
     [SerializeField] float duration = 0.5f;
     [SerializeField] float waitTime = 1.0f; // How long it stays visible
     [Header("References")]
     [SerializeField] Image cardImage;
+    [SerializeField] Button cardButton;
     [SerializeField] Sprite frontSprite;
     [SerializeField] Sprite backSprite;
 
     public bool isFaceUp = false;
     public bool isAnimating = false;
-
 
     #region LifeCycles
 
@@ -24,6 +24,7 @@ public class CardAnimation : MonoBehaviour
         isFaceUp = false;
         isAnimating = false;
     }
+
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -132,9 +133,17 @@ public class CardAnimation : MonoBehaviour
     }
     #endregion
 
+    #region UI
     public void SetCardSprites(Sprite p_front)
     {
         frontSprite = p_front;
     }
+
+    public void EnableButton(bool p_enable)
+    {
+        cardButton.enabled = p_enable;
+    }
+
+    #endregion
 
 }

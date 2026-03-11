@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 3606222573206761684}
   - component: {fileID: 5703140802690520119}
   - component: {fileID: 1488649154080846089}
-  - component: {fileID: 2474240182683255127}
+  - component: {fileID: 5333858606880052762}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -194,12 +194,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e978fa859850c41851ed5941b0e52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardAnimation: {fileID: 2474240182683255127}
+  cardAnimation: {fileID: 5333858606880052762}
   cardProperty:
     name: 
     image: {fileID: 0}
   cardImage: {fileID: 1067693958863821268}
---- !u!114 &2474240182683255127
+  cardIndex: 0
+  isResetable: 1
+  isSelectable: 1
+--- !u!114 &5333858606880052762
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,12 +211,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4292953351462956275}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ede5099adfee7da4481a3de2dbca4610, type: 3}
+  m_Script: {fileID: 11500000, guid: e05dc5bc1cb856d4b9c1bcfa84d0970d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 0.5
   waitTime: 1
   cardImage: {fileID: 1067693958863821268}
+  cardButton: {fileID: 5703140802690520119}
   frontSprite: {fileID: 983946677, guid: 2e64d9fa1a671e849a011b6dea1c3c6a, type: 3}
   backSprite: {fileID: 21300000, guid: 3c4d96173935b6c44a803548a3879d52, type: 3}
   isFaceUp: 0

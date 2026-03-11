@@ -53,7 +53,6 @@ public class CardFaceLoader : MonoBehaviour
         float parentHeight = rectTransform.rect.height;
 
         //calculate dimensions
-
         float totalSpacingWidth = spacing.x * (columns - 1);
         float totalSpacingHeight = spacing.y * (rows - 1);
 
@@ -84,37 +83,35 @@ public class CardFaceLoader : MonoBehaviour
         //if 12 => 6 unique cards. we get 6 cards from the cardProperties. then we shuffle them and assign them to the cards.
         //we can shuffle the list and assign them to the cards.
 
-
         for (int i = 0; i < shuffledCards.Length; i++)
         {
             //spawn twice
             GameObject newCard = Instantiate(cardPrefab, rectTransform);
             GameObject newCardPair = Instantiate(cardPrefab, rectTransform);
-            
-            newCard.GetComponent<CardBehaviour>().SetCardProperty(shuffledCards[i]);
-            newCardPair.GetComponent<CardBehaviour>().SetCardProperty(shuffledCards[i]);
+
+            newCard.GetComponent<CardBehaviour>().SetCardProperty(shuffledCards[i], i);
+            newCardPair.GetComponent<CardBehaviour>().SetCardProperty(shuffledCards[i],i);
 
             //newCard.GetComponent<CardBehaviour>().cardImage.sprite = cardFaces[i % cardFaces.Length];
             newCard.name = $"Card_{shuffledCards[i].name}";
             newCardPair.name = $"Card_{shuffledCards[i].name}";
+
         }
 
         ShuffleGrid();
     }
+
     public void ShuffleGrid()
     {
         int childCount = rectTransform.childCount;
 
-        // Fisher-Yates style shuffle for Sibling Indices
-        for (int i = 0; i < childCount; i++)
+        for (int childIndex = 0; childIndex < childCount; childIndex++)
         {
-            // Pick a random index from the remaining children
-            int randomIndex = UnityEngine.Random.Range(i, childCount);
-
-            // Swap the sibling index of the current child with the random one
-            rectTransform.GetChild(i).SetSiblingIndex(randomIndex);
+            int randomIndex = UnityEngine.Random.Range(childIndex, childCount);
+            rectTransform.GetChild(childIndex).SetSiblingIndex(randomIndex);
         }
     }
+
     internal Sprite[] GetSprites()
     {
         return cardFaces;

@@ -14,8 +14,9 @@ public class GameManager : MonoBehaviour
     [Header("Selected")]
     public int previouslySelected = -1;
     public int currentSelected = -1;
+
     public int selectedCards = 0;
-    public Vector2 selected = Vector2.zero;
+    public int[] selected = new int[2];
     [Header("Score")]
     [Space]
     public int score;
@@ -28,23 +29,60 @@ public class GameManager : MonoBehaviour
     private Queue<int> selectQueue;
 
     public Action<int> selectedIndex;
+    public Action<int> OnAnswerCorrect;
     public Action<int> Reset;
 
     public void SetSelected(int p_index)
     {
         UpdateTurn();
-        selectedCards++;
-        if (selectedCards > 2)
+        currentSelected = p_index;
+        if (currentSelected != previouslySelected)
         {
-            gameUIHandler.ResetCards();
-            selectedCards = 1;
+            previouslySelected = currentSelected;
+            //is two open;
+        }
+        else
+        {
+            //is correct
+            Debug.Log($"Correct");
+            UpdateScore();
+            OnAnswerCorrect?.Invoke(currentSelected);
+            //return;
+        }
+      
+        //selected[selectedCards >= 2 ? 0 : selectedCards] = currentSelected;
+        selectedCards++;
+        if (selectedCards == 1)
+        {
+            ResetSelection();
         }
 
-        currentSelected = p_index;
-        if (previouslySelected < 0)
-        {
-            previouslySelected = p_index;
-        }
+        //if (turns %3 ==0)
+        //{
+        //    ResetSelection();
+        //}
+
+        //if (selectedCards >= 2)
+        //{
+        //    if (selected[0]==selected[1])
+        //    {
+        //        Debug.Log($"Correct");
+        //    }
+        //}
+    }
+
+    private void UpdateScore()
+    {
+        score++;
+        gameUIHandler.UpdateScore(score);   
+    }
+
+    private void ResetSelection()
+    {
+        gameUIHandler.ResetCards();
+        selected = new int[2];
+        previouslySelected = -1;
+        selectedCards = -1;
     }
 
     public void UpdateTurn()
@@ -76,10 +114,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-
-    }
     #endregion
 
     #region Game Phases
@@ -90,6 +124,7 @@ public class GameManager : MonoBehaviour
         turns = 0;
 
         selectedCards = 0;
+        selected = new int[2];
 
         previouslySelected = -1;
         currentSelected = -1;

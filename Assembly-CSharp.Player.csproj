@@ -59,14 +59,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\LevelSelectHandler.cs" />
-    <Compile Include="Assets\Scripts\CardProperties.cs" />
+    <Compile Include="Assets\Scripts\Card\CardProperties.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
-    <Compile Include="Assets\Scripts\CardBehaviour.cs" />
-    <Compile Include="Assets\Scripts\CardAnimation.cs" />
-    <Compile Include="Assets\Scripts\CardFaceLoader.cs" />
+    <Compile Include="Assets\Scripts\Card\CardBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Card\CardFaceLoader.cs" />
     <Compile Include="Assets\Scripts\GameUIHandler.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\Card\CardUIBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
