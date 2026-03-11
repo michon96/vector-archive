@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] CardFaceLoader cardFaceLoader;
     [Space]
     [Header("Selected")]
-    [SerializeField] int previouslySelected = -1;
     [SerializeField] int currentSelected = -1;
+    [SerializeField] int lastSelected = -1;
+    [SerializeField] int lastSelectedObject = -1;
 
-    public int selectedCards = 0;
     [Header("Score")]
     [Space]
     [SerializeField] int score;
@@ -25,44 +25,40 @@ public class GameManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] bool startGameOnStart = true;
 
-    private Queue<int> selectQueue;
     public Action<int> selectedIndex;
     public Action<int> OnAnswerCorrect;
     public Action<int> Reset;
     public Action OnGameEnd;
 
-    public void SetSelected(int p_index)
+    private bool _isGameOver = false;
+    public bool IsGameOver => _isGameOver;
+
+    public int GetLastSelected => lastSelectedObject;
+  
+    public void SetSelected(int p_index,int p_siblingIndex)
     {
         UpdateTurn();
-        currentSelected = p_index;
-        if (currentSelected != previouslySelected)
+        if (lastSelectedObject == p_siblingIndex)
         {
-            previouslySelected = currentSelected;
-            //is two open;
+            return;
         }
-        else
-        {
-            //is correct
-            Debug.Log($"Correct");
+        lastSelectedObject = p_siblingIndex;
+        lastSelected = currentSelected;
+        currentSelected = p_index;
 
+        if (currentSelected == lastSelected)
+        {
+            Debug.Log($"Correct");
+            OnAnswerCorrect?.Invoke(p_index);
             UpdateScore();
             if (score >= levelSelectHandler.GetTotalScore())
                 EndGame();
-            OnAnswerCorrect?.Invoke(currentSelected);
             return;
         }
-
-        selectedCards++;
-        //if (selectedCards == 1)
-        //{
-        //    Debug.Log($"select cards triggered the reset");
-        //    ResetSelection();
-        //}
-
-        if (turns % 2 == 0)
+        else
         {
-            Debug.Log($"turns  triggered the reset");
-            ResetSelection();
+            Debug.Log($"Incorrect");
+            gameUIHandler.ResetCards();
         }
     }
 
@@ -70,13 +66,6 @@ public class GameManager : MonoBehaviour
     {
         score++;
         gameUIHandler.UpdateScore(score);
-    }
-
-    private void ResetSelection()
-    {
-        gameUIHandler.ResetCards();
-        previouslySelected = -1;
-        selectedCards = -1;
     }
 
     public void UpdateTurn()
@@ -117,13 +106,9 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
+        _isGameOver = false;
         score = 0;
         turns = 0;
-
-        selectedCards = 0;
-
-        previouslySelected = -1;
-        currentSelected = -1;
 
         cardFaceLoader.PopulateGrid(levelSelectHandler.GetSelectedLevel());
         gameUIHandler.UpdateScore(score);
@@ -132,6 +117,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
+        _isGameOver = true;
         gameUIHandler.UpdateFinalScore(score);
         UIManager.Instance.ChangeStatus(2);
         OnGameEnd?.Invoke();

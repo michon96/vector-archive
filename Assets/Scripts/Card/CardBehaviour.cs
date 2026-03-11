@@ -52,17 +52,22 @@ public class CardBehaviour : MonoBehaviour
     {
         if (p_correctIndex == cardIndex && isResetable)
         {
-            cardUIHandler.HideCard();
-            //isResetable = false;
+            Debug.Log($"Card {cardProperty.name} is correct");
+            //cardUIHandler.HideCard();
+            cardUIHandler.EnableButton(false);
+            isResetable = false;
             //isSelectable = false;
-            //cardAnimation.EnableButton(isSelectable);
         }
     }
 
     public void SelectCard()
     {
+        if (GameManager.Instance.GetLastSelected == cardIndex)
+        {
+            return;
+        }
+        GameManager.Instance.SetSelected(cardIndex,transform.GetSiblingIndex());
         cardUIHandler.FlipCard();
-        GameManager.Instance.SetSelected(cardIndex);
     }
 
     internal void ResetCard()

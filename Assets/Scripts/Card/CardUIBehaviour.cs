@@ -46,7 +46,7 @@ public class CardUIBehaviour : MonoBehaviour
 
     public void FlipCard()
     {
-        if (!isAnimating) StartCoroutine(RotateSequence(1));
+        if (!isAnimating && !GameManager.Instance.IsGameOver) StartCoroutine(RotateSequence(1));
     }
 
     public void FlipCard(bool p_front)
@@ -57,7 +57,7 @@ public class CardUIBehaviour : MonoBehaviour
         }
         try
         {
-            if (!isAnimating) StartCoroutine(FlipTo(p_front));
+            if (!isAnimating && !GameManager.Instance.IsGameOver) StartCoroutine(FlipTo(p_front));
         }
         catch (Exception)
         {
@@ -67,7 +67,7 @@ public class CardUIBehaviour : MonoBehaviour
 
     public void ShowAndHide()
     {
-        if (!isAnimating) StartCoroutine(RotateSequence(2));
+        if (!isAnimating && !GameManager.Instance.IsGameOver) StartCoroutine(RotateSequence(2));
     }
 
     IEnumerator RotateSequence(int loopCount)
