@@ -2557,8 +2557,8 @@ MonoBehaviour:
   - {fileID: 2090105187, guid: 2e64d9fa1a671e849a011b6dea1c3c6a, type: 3}
   - {fileID: 745403881, guid: 2e64d9fa1a671e849a011b6dea1c3c6a, type: 3}
   - {fileID: 1355786553, guid: 2e64d9fa1a671e849a011b6dea1c3c6a, type: 3}
-  rows: 5
-  columns: 5
+  rows: 10
+  columns: 10
   spacing: {x: 10, y: 10}
 --- !u!1 &1617901735
 GameObject:

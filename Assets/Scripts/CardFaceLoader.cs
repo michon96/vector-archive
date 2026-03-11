@@ -16,11 +16,16 @@ public class CardFaceLoader : MonoBehaviour
     [SerializeField] int columns = 4;
     [SerializeField] Vector2 spacing = new Vector2(10, 10);
     //[SerializeField] Vector4 padding = new Vector4(10,10,10,10);
-   
 
-    void Start()
+    public bool IsCardTotalEven()
     {
-        PopulateGrid();
+        int totalCards = rows * columns;
+        if (totalCards % 2 > 0)
+        {
+            Debug.LogError($"Error: Total Cards must be divisible by 2");
+            return false;
+        }
+        return true;
     }
 
     [ContextMenu("Clear Children")]
@@ -37,12 +42,16 @@ public class CardFaceLoader : MonoBehaviour
     public void PopulateGrid()
     {
         ClearGrid();
+        if (!IsCardTotalEven())
+        {
+            return;
+        }
         //get parent area
         float parentWidth = rectTransform.rect.width;
         float parentHeight = rectTransform.rect.height;
 
         //calculate dimensions
-        
+
         float totalSpacingWidth = spacing.x * (columns - 1);
         float totalSpacingHeight = spacing.y * (rows - 1);
 
