@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e978fa859850c41851ed5941b0e52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardAnimation: {fileID: 5333858606880052762}
+  cardUIHandler: {fileID: 5333858606880052762}
   cardProperty:
     name: 
     image: {fileID: 0}

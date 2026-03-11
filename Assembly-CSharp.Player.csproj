@@ -60,10 +60,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\LevelSelectHandler.cs" />
     <Compile Include="Assets\Scripts\Card\CardProperties.cs" />
-    <Compile Include="Assets\Scripts\UIManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UIManager.cs" />
     <Compile Include="Assets\Scripts\Card\CardBehaviour.cs" />
     <Compile Include="Assets\Scripts\Card\CardFaceLoader.cs" />
-    <Compile Include="Assets\Scripts\GameUIHandler.cs" />
+    <Compile Include="Assets\Scripts\UI\GameUIHandler.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Card\CardUIBehaviour.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />

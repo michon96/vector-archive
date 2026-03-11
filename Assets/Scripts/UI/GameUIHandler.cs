@@ -5,13 +5,11 @@ using UnityEngine.UI;
 
 public class GameUIHandler : MonoBehaviour
 {
-    public GameManager gameManager;
-
-    public Text scoreText;
-    public Text turnText;
+    [SerializeField] Text scoreText;
+    [SerializeField] Text turnText;
     [Space]
-    public Text finalScoreText;
-    public RectTransform cardParent;
+    [SerializeField] Text finalScoreText;
+    [SerializeField] RectTransform cardParent;
 
     public void UpdateTurn(int p_turn)
     {

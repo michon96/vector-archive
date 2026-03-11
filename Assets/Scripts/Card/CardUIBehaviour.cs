@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,10 +33,16 @@ public class CardUIBehaviour : MonoBehaviour
             FlipCard();
         }
     }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        isAnimating = false;
+    }
 
     #endregion
 
     #region Card Flipping
+
 
     public void FlipCard()
     {
@@ -48,7 +55,14 @@ public class CardUIBehaviour : MonoBehaviour
         {
             return;
         }
-        if (!isAnimating) StartCoroutine(FlipTo(p_front));
+        try
+        {
+            if (!isAnimating) StartCoroutine(FlipTo(p_front));
+        }
+        catch (Exception)
+        {
+            //game has ended to flip
+        }
     }
 
     public void ShowAndHide()
@@ -142,6 +156,19 @@ public class CardUIBehaviour : MonoBehaviour
     public void EnableButton(bool p_enable)
     {
         cardButton.enabled = p_enable;
+    }
+
+    internal void HideCard()
+    {
+        try
+        {
+            cardImage.enabled = (false);
+
+        }
+        catch (Exception)
+        {
+
+        }
     }
 
     #endregion

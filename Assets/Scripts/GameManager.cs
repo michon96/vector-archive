@@ -26,10 +26,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool startGameOnStart = true;
 
     private Queue<int> selectQueue;
-
     public Action<int> selectedIndex;
     public Action<int> OnAnswerCorrect;
     public Action<int> Reset;
+    public Action OnGameEnd;
 
     public void SetSelected(int p_index)
     {
@@ -49,16 +49,17 @@ public class GameManager : MonoBehaviour
             if (score >= levelSelectHandler.GetTotalScore())
                 EndGame();
             OnAnswerCorrect?.Invoke(currentSelected);
+            return;
         }
 
         selectedCards++;
-        if (selectedCards == 1)
-        {
-            Debug.Log($"select cards triggered the reset");
-            ResetSelection();
-        }
+        //if (selectedCards == 1)
+        //{
+        //    Debug.Log($"select cards triggered the reset");
+        //    ResetSelection();
+        //}
 
-        if (turns % 3 == 0)
+        if (turns % 2 == 0)
         {
             Debug.Log($"turns  triggered the reset");
             ResetSelection();
@@ -133,6 +134,7 @@ public class GameManager : MonoBehaviour
     {
         gameUIHandler.UpdateFinalScore(score);
         UIManager.Instance.ChangeStatus(2);
+        OnGameEnd?.Invoke();
     }
     #endregion
 
