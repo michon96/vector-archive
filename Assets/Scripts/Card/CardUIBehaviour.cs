@@ -90,6 +90,7 @@ public class CardUIBehaviour : MonoBehaviour
 
     IEnumerator PerformRotation()
     {
+        
         isAnimating = true;
         float time = 0;
         Quaternion startRotation = cardImage.rectTransform.transform.localRotation;

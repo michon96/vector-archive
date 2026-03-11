@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [Space]
     [Header("Debug")]
     [SerializeField] bool startGameOnStart = true;
+    public List<int> correctAnswers;
 
     public Action<int> selectedIndex;
     public Action<int> OnAnswerCorrect;
@@ -34,24 +35,55 @@ public class GameManager : MonoBehaviour
     public bool IsGameOver => _isGameOver;
 
     public int GetLastSelected => lastSelectedObject;
-  
-    public void SetSelected(int p_index,int p_siblingIndex)
+
+    public bool isCardCorrect(int p_index)
+    {
+        return correctAnswers.Contains(p_index);
+    }
+
+    public void SetSelected(int p_index, int p_siblingIndex)
     {
         UpdateTurn();
-        if (lastSelectedObject == p_siblingIndex)
-        {
-            return;
-        }
+        Debug.Log($"Selected 2");
         lastSelectedObject = p_siblingIndex;
         lastSelected = currentSelected;
         currentSelected = p_index;
 
+        if (currentSelected == lastSelected && !isCardCorrect(p_index))
+        {
+            UpdateScore();
+            Debug.Log($"Correct");
+            correctAnswers.Add(p_index);
+            if (correctAnswers.Count >= levelSelectHandler.GetTotalScore())
+                EndGame();
+            OnAnswerCorrect?.Invoke(p_index);
+
+            currentSelected = -1;
+            lastSelected = -1;
+            lastSelectedObject = -1;
+            gameUIHandler.ResetCards();
+            return;
+        }
+        else
+        {
+            Debug.Log($"Incorrect");
+            gameUIHandler.ResetCards();
+        }
+    }
+    public void SetSelected(CardBehaviour p_cardBehaviour, int p_siblingIndex)
+    {
+        UpdateTurn();
+        Debug.Log($"Selected 2");
+        lastSelectedObject = p_siblingIndex;
+        lastSelected = currentSelected;
+        currentSelected = p_cardBehaviour.GetCardID();
+
         if (currentSelected == lastSelected)
         {
-            Debug.Log($"Correct");
-            OnAnswerCorrect?.Invoke(p_index);
             UpdateScore();
-            if (score >= levelSelectHandler.GetTotalScore())
+            Debug.Log($"Correct");
+            //p_cardBehaviour.Fl
+            if (correctAnswers.Count >= levelSelectHandler.GetTotalScore())
                 EndGame();
             return;
         }
@@ -106,9 +138,14 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
+        correctAnswers = new List<int>();
         _isGameOver = false;
         score = 0;
         turns = 0;
+
+        currentSelected = -1;
+        lastSelected = -1;
+        lastSelectedObject = -1;
 
         cardFaceLoader.PopulateGrid(levelSelectHandler.GetSelectedLevel());
         gameUIHandler.UpdateScore(score);
@@ -119,6 +156,7 @@ public class GameManager : MonoBehaviour
     {
         _isGameOver = true;
         gameUIHandler.UpdateFinalScore(score);
+        gameUIHandler.UpdateFinalTurns(turns);
         UIManager.Instance.ChangeStatus(2);
         OnGameEnd?.Invoke();
     }

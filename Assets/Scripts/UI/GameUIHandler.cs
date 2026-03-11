@@ -9,6 +9,7 @@ public class GameUIHandler : MonoBehaviour
     [SerializeField] Text turnText;
     [Space]
     [SerializeField] Text finalScoreText;
+    [SerializeField] Text finalTurnsText;
     [SerializeField] RectTransform cardParent;
 
     public void UpdateTurn(int p_turn)
@@ -23,6 +24,10 @@ public class GameUIHandler : MonoBehaviour
     public void UpdateFinalScore(int p_score)
     {
         finalScoreText.text = $"Final Score: {p_score}";
+    }
+    public void UpdateFinalTurns(int p_turn)
+    {
+        finalTurnsText.text = $"Turns: {p_turn}";
     }
 
     [ContextMenu("Reset Cards")]
