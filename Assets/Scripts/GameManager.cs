@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance => _instance;
     [Header("Dependencies")]
+    public LevelSelectHandler levelSelectHandler;
     public GameUIHandler gameUIHandler;
     public CardFaceLoader cardFaceLoader;
     [Space]
@@ -92,7 +93,10 @@ public class GameManager : MonoBehaviour
     }
 
     #region LifeCycles
-
+    private void OnEnable()
+    {
+        //GameStart();
+    }
     private void Awake()
     {
         if (_instance != null && _instance != this)
@@ -129,7 +133,7 @@ public class GameManager : MonoBehaviour
         previouslySelected = -1;
         currentSelected = -1;
 
-        cardFaceLoader.PopulateGrid();
+        cardFaceLoader.PopulateGrid(levelSelectHandler.GetSelectedLevel());
         gameUIHandler.UpdateScore(score);
         gameUIHandler.UpdateTurn(turns);
     }
@@ -148,5 +152,10 @@ public class GameManager : MonoBehaviour
     public void Combo()
     {
 
+    }
+    public void ResetGame()
+    {
+        UIManager.Instance.ChangeStatus(1);
+        GameStart();
     }
 }

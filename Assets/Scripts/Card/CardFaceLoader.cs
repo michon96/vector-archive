@@ -42,8 +42,20 @@ public class CardFaceLoader : MonoBehaviour
         }
     }
 
-    public void PopulateGrid()
+    public void PopulateGrid(int[] p_dimension)
     {
+
+        if (!p_dimension.Equals(new int[2]))
+        {
+            rows = (int)p_dimension[0];
+            columns = (int)p_dimension[1];
+            Debug.Log($"Using Selected Values {rows}x{columns}");
+        }
+        else
+        {
+            Debug.Log($"Using Default Values {rows}x{columns}");
+        }
+
         ClearGrid();
         if (!IsCardTotalEven())
             return;
@@ -90,7 +102,7 @@ public class CardFaceLoader : MonoBehaviour
             GameObject newCardPair = Instantiate(cardPrefab, rectTransform);
 
             newCard.GetComponent<CardBehaviour>().SetCardProperty(shuffledCards[i], i);
-            newCardPair.GetComponent<CardBehaviour>().SetCardProperty(shuffledCards[i],i);
+            newCardPair.GetComponent<CardBehaviour>().SetCardProperty(shuffledCards[i], i);
 
             //newCard.GetComponent<CardBehaviour>().cardImage.sprite = cardFaces[i % cardFaces.Length];
             newCard.name = $"Card_{shuffledCards[i].name}";
