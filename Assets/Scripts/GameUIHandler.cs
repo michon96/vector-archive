@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameUIHandler : MonoBehaviour
 {
+    public GameManager gameManager;
+
     public Text scoreText;
     public Text turnText;
 
@@ -21,6 +23,11 @@ public class GameUIHandler : MonoBehaviour
     }
 
     public void UpdateTurn()
+    {
+
+    }
+
+    public void UpdateScore()
     {
 
     }
