@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,5 +31,11 @@ public class CardBehaviour : MonoBehaviour
     public void HideCard()
     {
 
+    }
+
+    internal void ResetCard()
+    {
+       
+        cardAnimation.FlipCard(false);
     }
 }

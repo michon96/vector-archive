@@ -9,26 +9,26 @@ public class GameUIHandler : MonoBehaviour
 
     public Text scoreText;
     public Text turnText;
+    public RectTransform cardParent;
 
-    // Start is called before the first frame update
-    void Start()
+    public void UpdateTurn(int p_turn)
     {
-        
+        turnText.text = $"Turn: {p_turn}";
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateScore(int p_score)
     {
-        
+        scoreText.text = $"Matches: {p_score}";
     }
 
-    public void UpdateTurn()
+    [ContextMenu("Reset Cards")]
+    public void ResetCards()
     {
-
-    }
-
-    public void UpdateScore()
-    {
-
+        int totalChildren = cardParent.childCount;
+        for (int childIndex = 0; childIndex < totalChildren; childIndex++)
+        {
+            var child = cardParent.GetChild(childIndex).gameObject;
+            child.GetComponent<CardBehaviour>().ResetCard();
+        }
     }
 }
