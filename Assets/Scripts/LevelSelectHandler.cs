@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,14 +18,14 @@ public class LevelSelectHandler : MonoBehaviour
 
     void Start()
     {
-        RegisterAllToggles(); 
+        RegisterAllToggles();
         SetSelectedToggle(selectedLevel);
     }
 
     void OnLevelSelected(int levelID)
     {
         selectedLevel = levelID;
-        
+
         Debug.Log("Level selected: " + selectedLevel);
     }
 
@@ -43,10 +44,11 @@ public class LevelSelectHandler : MonoBehaviour
             int levelIndex = i + 1;
             Toggle currentToggle = toggles[i];
 
-            currentToggle.onValueChanged.AddListener((bool isOn) => {
+            currentToggle.onValueChanged.AddListener((bool isOn) =>
+            {
                 if (isOn)
                 {
-                    OnLevelSelected(levelIndex-1);
+                    OnLevelSelected(levelIndex - 1);
                 }
             });
         }
@@ -59,9 +61,15 @@ public class LevelSelectHandler : MonoBehaviour
         {
             int levelIndex = i + 1;
             Toggle currentToggle = toggles[i];
-            currentToggle.isOn =false;
-          
+            currentToggle.isOn = false;
+
         }
         toggles[0].isOn = true;
+    }
+
+    internal int GetTotalScore()
+    {
+        var levelDim = GetSelectedLevel();
+        return (levelDim[0] * levelDim[1]) / 2;
     }
 }

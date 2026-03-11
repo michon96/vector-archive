@@ -9,6 +9,8 @@ public class GameUIHandler : MonoBehaviour
 
     public Text scoreText;
     public Text turnText;
+    [Space]
+    public Text finalScoreText;
     public RectTransform cardParent;
 
     public void UpdateTurn(int p_turn)
@@ -19,6 +21,10 @@ public class GameUIHandler : MonoBehaviour
     public void UpdateScore(int p_score)
     {
         scoreText.text = $"Matches: {p_score}";
+    }
+    public void UpdateFinalScore(int p_score)
+    {
+        finalScoreText.text = $"Final Score: {p_score}";
     }
 
     [ContextMenu("Reset Cards")]

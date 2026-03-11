@@ -65,8 +65,8 @@
     <Compile Include="Assets\Scripts\Card\CardFaceLoader.cs" />
     <Compile Include="Assets\Scripts\GameUIHandler.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
-    <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Card\CardUIBehaviour.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
