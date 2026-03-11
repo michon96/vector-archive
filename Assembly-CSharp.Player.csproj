@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\CardFaceLoader.cs" />
     <Compile Include="Assets\Scripts\GameUIHandler.cs" />
     <Compile Include="Assets\CardAnimation.cs" />
+    <Compile Include="Assets\CardProperties.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\LevelSelectHandler.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
