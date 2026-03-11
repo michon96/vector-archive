@@ -1,9 +1,12 @@
+using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CardFaceLoader : MonoBehaviour
 {
     [Header("Dependencies")]
+    [SerializeField] CardProperties globalCardValues;
     [SerializeField] RectTransform rectTransform;
     [SerializeField] GridLayoutGroup gridGroup;
     [Space]
@@ -43,9 +46,8 @@ public class CardFaceLoader : MonoBehaviour
     {
         ClearGrid();
         if (!IsCardTotalEven())
-        {
             return;
-        }
+
         //get parent area
         float parentWidth = rectTransform.rect.width;
         float parentHeight = rectTransform.rect.height;
@@ -68,17 +70,53 @@ public class CardFaceLoader : MonoBehaviour
         gridGroup.cellSize = new Vector2(cellWidth, cellHeight);
         gridGroup.spacing = spacing;
 
-
         //set based on column
         gridGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         gridGroup.constraintCount = columns;
 
         int totalCards = rows * columns;
-        for (int i = 0; i < totalCards; i++)
+
+        //first we get from cardProperties. 
+        //basically get total/2 => number of Cards. then we receive the list. then spawn them below.
+        //then we can shuffle the list and assign them to the cards.
+
+        var shuffledCards = globalCardValues.GetCards(totalCards);
+        //if 12 => 6 unique cards. we get 6 cards from the cardProperties. then we shuffle them and assign them to the cards.
+        //we can shuffle the list and assign them to the cards.
+
+
+        for (int i = 0; i < shuffledCards.Length; i++)
         {
+            //spawn twice
             GameObject newCard = Instantiate(cardPrefab, rectTransform);
-            newCard.name = $"Card_{i}";
+            GameObject newCardPair = Instantiate(cardPrefab, rectTransform);
+            
+            newCard.GetComponent<CardBehaviour>().SetCardProperty(shuffledCards[i]);
+            newCardPair.GetComponent<CardBehaviour>().SetCardProperty(shuffledCards[i]);
+
+            //newCard.GetComponent<CardBehaviour>().cardImage.sprite = cardFaces[i % cardFaces.Length];
+            newCard.name = $"Card_{shuffledCards[i].name}";
+            newCardPair.name = $"Card_{shuffledCards[i].name}";
+        }
+
+        ShuffleGrid();
+    }
+    public void ShuffleGrid()
+    {
+        int childCount = rectTransform.childCount;
+
+        // Fisher-Yates style shuffle for Sibling Indices
+        for (int i = 0; i < childCount; i++)
+        {
+            // Pick a random index from the remaining children
+            int randomIndex = UnityEngine.Random.Range(i, childCount);
+
+            // Swap the sibling index of the current child with the random one
+            rectTransform.GetChild(i).SetSiblingIndex(randomIndex);
         }
     }
-
+    internal Sprite[] GetSprites()
+    {
+        return cardFaces;
+    }
 }

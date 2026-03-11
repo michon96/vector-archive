@@ -1,22 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(CardAnimation))]
 public class CardBehaviour : MonoBehaviour
 {
-    public enum CardType
-    {
-        Apple, 
-        Banana
-    }
-
     [SerializeField] CardAnimation cardAnimation;
+    [SerializeField] CardProperties.Card cardProperty;
     [SerializeField] Image cardImage;
 
-    // Start is called before the first frame update
     void Start()
     {
         cardAnimation = GetComponent<CardAnimation>();
@@ -35,7 +27,13 @@ public class CardBehaviour : MonoBehaviour
 
     internal void ResetCard()
     {
-       
         cardAnimation.FlipCard(false);
+    }
+
+    internal void SetCardProperty(CardProperties.Card p_card)
+    {
+        cardProperty = p_card;
+        cardImage.sprite = cardProperty.image;
+        cardAnimation.SetCardSprites(p_card.image);
     }
 }

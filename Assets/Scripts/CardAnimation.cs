@@ -15,6 +15,15 @@ public class CardAnimation : MonoBehaviour
     public bool isFaceUp = false;
     public bool isAnimating = false;
 
+
+    #region LifeCycles
+
+    private void Start()
+    {
+        cardImage.sprite = backSprite;
+        isFaceUp = false;
+        isAnimating = false;
+    }
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -22,6 +31,11 @@ public class CardAnimation : MonoBehaviour
             FlipCard();
         }
     }
+
+    #endregion
+
+    #region Card Flipping
+
     public void FlipCard()
     {
         if (!isAnimating) StartCoroutine(RotateSequence(1));
@@ -116,6 +130,11 @@ public class CardAnimation : MonoBehaviour
         cardImage.rectTransform.localRotation = endRotation;
         isAnimating = false;
     }
+    #endregion
 
+    public void SetCardSprites(Sprite p_front)
+    {
+        frontSprite = p_front;
+    }
 
 }

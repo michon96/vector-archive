@@ -31,6 +31,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9189984273546627518}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -65,9 +66,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 660647150, guid: 2e64d9fa1a671e849a011b6dea1c3c6a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c4d96173935b6c44a803548a3879d52, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -110,6 +111,7 @@ RectTransform:
   - {fileID: 2783076172108085441}
   - {fileID: 5628676917266181598}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -192,7 +194,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e978fa859850c41851ed5941b0e52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardAnimation: {fileID: 0}
+  cardAnimation: {fileID: 2474240182683255127}
+  cardProperty:
+    name: 
+    image: {fileID: 0}
+  cardImage: {fileID: 1067693958863821268}
 --- !u!114 &2474240182683255127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,9 +212,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 0.5
+  waitTime: 1
   cardImage: {fileID: 1067693958863821268}
   frontSprite: {fileID: 983946677, guid: 2e64d9fa1a671e849a011b6dea1c3c6a, type: 3}
-  backSprite: {fileID: 660647150, guid: 2e64d9fa1a671e849a011b6dea1c3c6a, type: 3}
+  backSprite: {fileID: 21300000, guid: 3c4d96173935b6c44a803548a3879d52, type: 3}
   isFaceUp: 0
   isAnimating: 0
 --- !u!1 &8754778849963199643
@@ -242,6 +249,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9189984273546627518}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
