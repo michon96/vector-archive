@@ -25,11 +25,11 @@ public class LevelSelectHandler : MonoBehaviour
     void OnLevelSelected(int levelID)
     {
         selectedLevel = levelID;
-
         Debug.Log("Level selected: " + selectedLevel);
     }
 
-    public int[] GetSelectedLevel()
+    public int GetSelectedLevel => selectedLevel;
+    public int[] GetSelectedLevelDimensions()
     {
 
         var toReturn = gameLevels[selectedLevel];
@@ -69,7 +69,7 @@ public class LevelSelectHandler : MonoBehaviour
 
     internal int GetTotalScore()
     {
-        var levelDim = GetSelectedLevel();
+        var levelDim = GetSelectedLevelDimensions();
         return (levelDim[0] * levelDim[1]) / 2;
     }
 }

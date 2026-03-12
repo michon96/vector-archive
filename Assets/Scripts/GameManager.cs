@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance => _instance;
     [Header("Dependencies")]
+    [SerializeField] HighScoreHandler highScoreHandler;
+    [SerializeField] SavedDataHandler saveDataHandler;
     [SerializeField] LevelSelectHandler levelSelectHandler;
     [SerializeField] GameUIHandler gameUIHandler;
     [SerializeField] CardFaceLoader cardFaceLoader;
@@ -44,7 +46,7 @@ public class GameManager : MonoBehaviour
     public void SetSelected(int p_index, int p_siblingIndex)
     {
         UpdateTurn();
-        Debug.Log($"Selected 2");
+        //Debug.Log($"Selected 2");
         lastSelectedObject = p_siblingIndex;
         lastSelected = currentSelected;
         currentSelected = p_index;
@@ -52,7 +54,7 @@ public class GameManager : MonoBehaviour
         if (currentSelected == lastSelected && !isCardCorrect(p_index))
         {
             UpdateScore();
-            Debug.Log($"Correct");
+            //Debug.Log($"Correct");
             correctAnswers.Add(p_index);
             if (correctAnswers.Count >= levelSelectHandler.GetTotalScore())
                 EndGame();
@@ -66,7 +68,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"Incorrect");
+            //Debug.Log($"Incorrect");
             gameUIHandler.ResetCards();
         }
     }
@@ -147,7 +149,7 @@ public class GameManager : MonoBehaviour
         lastSelected = -1;
         lastSelectedObject = -1;
 
-        cardFaceLoader.PopulateGrid(levelSelectHandler.GetSelectedLevel());
+        cardFaceLoader.PopulateGrid(levelSelectHandler.GetSelectedLevelDimensions());
         gameUIHandler.UpdateScore(score);
         gameUIHandler.UpdateTurn(turns);
     }
@@ -157,9 +159,18 @@ public class GameManager : MonoBehaviour
         _isGameOver = true;
         gameUIHandler.UpdateFinalScore(score);
         gameUIHandler.UpdateFinalTurns(turns);
+        
+        GameData data = new GameData();
+        data.turns = turns;
+        data.score = score;
+        data.level = (int)levelSelectHandler.GetSelectedLevel;
+        
+        saveDataHandler.SaveGame(data);
+        highScoreHandler.ShowHighScores();
         UIManager.Instance.ChangeStatus(2);
         OnGameEnd?.Invoke();
     }
+
     #endregion
 
     public void CheckCorrect()
