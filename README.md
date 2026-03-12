@@ -1,24 +1,28 @@
-# 2D Fruit Matching Game - Technical Assignment
+# Scalable Memory Game Architecture - Technical Assignment
 
-A scalable matching game built in **Unity 2021.3 LTS**. This project demonstrates clean C# architecture, dynamic UI management, and efficient state handling tailored for mobile or web performance.
+A dynamic, sprite-driven matching system built in **Unity 2021.3 LTS**. This project demonstrates a clean approach to UI management and state-based game logic, designed to be easily expandable for larger project scopes.
 
 ## 🛠 Technical Implementation
 
-### 1. Data Management & Scalability
-* **Dynamic Sprite Assignment:** Uses a custom loader to handle the 28 unique fruit sprites from the provided sprite sheet.
-* **Smart Pool Logic:** Designed to handle any grid size. If the grid requires more than 28 pairs, the system automatically reshuffles the fruit pool to prevent duplication patterns or index errors.
+### 1. Dynamic Data & Asset Management
+* **Sprite-Driven System:** The project utilizes a custom `CardProperties` manager that handles 28 unique fruit assets dynamically.
+* **Intelligent Pooling:** The architecture supports any grid size. If the requested number of pairs exceeds the unique asset count, the system automatically reshuffles and repopulates the fruit pool to maintain gameplay variety without errors.
 
-### 2. UI Shuffling & Layout
-* **Sibling Index Manipulation:** Utilized the Unity UI Sibling Index to scramble card positions. This allows the **GridLayoutGroup** to handle the heavy lifting of positioning while maintaining high performance.
-* **Fisher-Yates Algorithm:** Ensures a mathematically "fair" shuffle every time the game starts.
+### 2. High-Performance UI Shuffling
+* **Sibling Index Manipulation:** To maintain high performance and avoid unnecessary transform calculations, the project utilizes the **Unity UI Sibling Index**. 
+* **Layout Agnostic:** By scrambling the hierarchy order, the `GridLayoutGroup` handles the card positioning automatically. This ensures the grid is responsive and compatible with various screen aspect ratios.
 
-### 3. Selection & Match Logic
-* **Integer-Based State Tracking:** Optimized memory usage by tracking selection via integer IDs.
-* **Input Validation:** Prevents common bugs such as "same-card matching" (clicking the same object twice).
-* **Event-Driven Design:** Employs delegates (`OnAnswerCorrect`) to keep the UI and Game Logic decoupled.
+### 3. State-Based Selection Logic
+* **Validation & Security:** Implemented an integer-based ID tracking system to verify matches. This logic includes checks to prevent "self-matching" bugs (clicking the same object twice).
+* **Decoupled Architecture:** Utilizes C# delegates (`OnAnswerCorrect`) to signal successful matches. This keeps the core game logic independent from the UI and visual effects, following professional development standards.
 
 ## 🚀 How to Run
 1. Clone the repository.
 2. Open the project in **Unity 2021.3 LTS**.
-3. Open `SampleScene` from the `Assets/Scenes` folder.
+3. Open the `Sample Scene` located in `Assets/Scenes`.
 4. Press **Play**.
+
+## 📁 Project Structure
+* **CardProperties.cs**: The central controller for card data, pooling, and matching logic.
+* **CardBehaviour.cs**: Manages individual card states, animations, and input events.
+* **CardFaceLoader.cs**: Handles the dynamic slicing and assignment of the 2D fruit sprite sheet.
